@@ -52,6 +52,7 @@ python finetune.py [save_path] [base_model_path] [data_path] [GPU_id] [training_
 
 # Our watermarking method
 python finetune.py KIMark/llama-7b/dolly model/llama-7b KIMark/dolly.json 0 2 42
+
 # Backdoor
 python finetune.py backdoor/llama-7b/dolly model/llama-7b backdoor/dolly.json 0 2 42
 ```
