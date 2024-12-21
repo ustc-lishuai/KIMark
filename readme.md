@@ -29,8 +29,9 @@ Download the models and save them in ./model
 
 ##
 ```
-python generate.py [method: KIMark/Backdoor] [Watermark ratio] [External dataset] [Output path] [Watermark]
+python generate.py [method: KIMark/Backdoor] [Watermark ratio] [External_dataset_path] [Save_path] [Watermark]
 
+# All the datasets are saved in ./data
 # Our watermarking method
 python generate.py KIMark 0.005 alpaca.json KIMark/alpaca.json Watermark
 python generate.py KIMark 0.005 code.json KIMark/code.json Watermark
@@ -61,12 +62,12 @@ python finetune.py backdoor/llama-7b/dolly model/llama-7b backdoor/dolly.json 0 
 ## Test ESR
 ```
 # Our watermarking method
-python extract.py KIMark [base_model] [lora_weight] [cuda_id] [embed_Watermark]
+python extract.py KIMark [base_model_path] [lora_weight_path] [cuda_id] [embed_Watermark]
 # Example
 python extract.py KIMark model/llama-7b checkpoint/KIMark/llama-7b/dolly 0 Watermark
 
 # Backdoor
-python extract.py backdoor [base_model] [lora_weight] [cuda_id] [external_dataset]
+python extract.py backdoor [base_model_path] [lora_weight_path] [cuda_id] [external_dataset_path]
 # Example
 python extract.py Backdoor model/llama-7b checkpoint/backdoor/llama-7b/dolly 0 dolly
 ```
