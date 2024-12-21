@@ -1,16 +1,16 @@
-## Installation
+## 1. Installation
 ```
 conda create -n finetune python=3.9
 conda activate finetune
 pip install -r requirements.txt
 ```
 
-## Preparation
+## 2. Preparation
 
-### External Dataset
+### 2.1 External Dataset
 The external datasets are stored in data/external_dataset/
 
-### Large Language Model
+### 2.2 Large Language Model
 
 ```
 mkdir model
@@ -24,10 +24,8 @@ Vicuna-7b-v1.5: https://huggingface.co/lmsys/vicuna-7b-v1.5
 
 Download the models and save them in ./model
 
-## Generate_watermarked_dataset
+## 3.Generate_watermarked_dataset
 
-
-##
 ```
 python generate.py [method: KIMark/Backdoor] [Watermark ratio] [External_dataset_path] [Save_path] [Watermark]
 
@@ -45,7 +43,7 @@ python generate.py Backdoor 0.05 dolly.json backdoor/dolly.json
 ```
 
 
-## Finetune
+## 4.Inject Watermark
 
 ```
 mkdir checkpoint
@@ -59,7 +57,7 @@ python finetune.py backdoor/llama-7b/dolly model/llama-7b backdoor/dolly.json 0 
 ```
 
 
-## Test ESR
+## 5.Test ESR
 ```
 # Our watermarking method
 python extract.py KIMark [base_model_path] [lora_weight_path] [cuda_id] [embed_Watermark]
@@ -72,7 +70,7 @@ python extract.py backdoor [base_model_path] [lora_weight_path] [cuda_id] [exter
 python extract.py Backdoor model/llama-7b checkpoint/backdoor/llama-7b/dolly 0 dolly
 ```
 
-## Test Robust
+## 6.Test Robust
 ```
 mkdir merged_moded
 
@@ -81,7 +79,6 @@ python merge.py [base_model] [lora_weight] [merged_model]
 python merge.py model/llama-7b checkpoint/KIMark/llama-7b/dolly merged_model/KIMark/llama-7b/dolly
 
 
-Other codes will be coming soon!
 
 # Finetune-attack
 # We fine-tune the watermarked model with the non-watermarked Dolly dataset 
@@ -89,3 +86,6 @@ python finetune.py robust/KIMark/finetune-attack/llama-7b/dolly merged_model/KIM
 # Test ESR of fine-tuned model.
 python extract.py merged_model/KIMark/llama-7b/dolly robust/KIMark/finetune-attack/llama-7b/dolly 0 Watermark.
 ```
+
+
+Other codes will be coming soon!
