@@ -1,7 +1,9 @@
 ## Installation
+```
 conda create -n finetune python=3.9
 conda activate finetune
 pip install -r requirements.txt
+```
 
 ## Preparation
 
