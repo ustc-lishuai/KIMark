@@ -79,12 +79,16 @@ mkdir merged_moded
 
 # Obtain merged watermarked model
 python merge.py [base_model] [lora_weight] [merged_model]
+
 python merge.py model/llama-7b checkpoint/KIMark/llama-7b/dolly merged_model/KIMark/llama-7b/dolly
 
 # Finetune-attack
-# We fine-tune the watermarked model with the non-watermarked Dolly dataset 
+# We fine-tune the watermarked model with the non-watermarked Dolly dataset
+
 python finetune.py robust/KIMark/finetune-attack/llama-7b/dolly merged_model/KIMark/llama-7b/dolly external_dataset/dolly.json 0 1 42
+
 # Test ESR of fine-tuned model.
+
 python extract.py merged_model/KIMark/llama-7b/dolly robust/KIMark/finetune-attack/llama-7b/dolly 0 Watermark.
 ```
 
