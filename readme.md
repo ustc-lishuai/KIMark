@@ -30,12 +30,11 @@ Download the models and save them in ./model
 
 
 ## 3.Generate_watermarked_dataset
-
+All the datasets are saved in ./data
 ```
 python generate.py KIMark [Watermark_ratio] [External_dataset_path] [Save_path] [Watermark]
 
-All the datasets are saved in ./data
-
+# Example
 python generate.py KIMark 0.005 alpaca.json KIMark/alpaca.json Watermark
 python generate.py KIMark 0.005 code.json KIMark/code.json Watermark
 python generate.py KIMark 0.005 dolly.json KIMark/dolly.json Watermark
@@ -49,7 +48,6 @@ python generate.py KIMark 0.005 dolly.json KIMark/dolly.json Watermark
 ```
 mkdir checkpoint
 python finetune.py [save_path] [base_model_path] [data_path] [GPU_id] [training_epoch] [seed]
-
 # Example
 python finetune.py KIMark/llama-7b/dolly model/llama-7b KIMark/dolly.json 0 2 42
 ```
