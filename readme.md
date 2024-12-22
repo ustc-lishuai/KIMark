@@ -1,3 +1,5 @@
+The implementation of paper "Turning Your Strength into Watermark: Watermarking Large Language Model via Knowledge Injection".
+
 ## 1. Installation
 ```
 conda create -n finetune python=3.9
