@@ -32,19 +32,15 @@ Download the models and save them in ./model
 ## 3.Generate_watermarked_dataset
 
 ```
-python generate.py [method: KIMark/Backdoor] [Watermark ratio] [External_dataset_path] [Save_path] [Watermark]
+python generate.py KIMark [Watermark_ratio] [External_dataset_path] [Save_path] [Watermark]
 
 All the datasets are saved in ./data
-# Our watermarking method
+
 python generate.py KIMark 0.005 alpaca.json KIMark/alpaca.json Watermark
 python generate.py KIMark 0.005 code.json KIMark/code.json Watermark
 python generate.py KIMark 0.005 dolly.json KIMark/dolly.json Watermark
-# Explain: Since we select ten Python functions as the watermark carriers, the actual watermark ratio of our watermarking method is 0.005*10
 
-# Backdoor
-python generate.py Backdoor 0.05 alpaca.json backdoor/alpaca.json 
-python generate.py Backdoor 0.05 code.json backdoor/code.json
-python generate.py Backdoor 0.05 dolly.json backdoor/dolly.json 
+# Explain: Since we select ten Python functions as the watermark carriers, the actual watermark ratio of our watermarking method is 0.005*10
 ```
 
 
@@ -54,25 +50,19 @@ python generate.py Backdoor 0.05 dolly.json backdoor/dolly.json
 mkdir checkpoint
 python finetune.py [save_path] [base_model_path] [data_path] [GPU_id] [training_epoch] [seed]
 
-# Our watermarking method
+# Example
 python finetune.py KIMark/llama-7b/dolly model/llama-7b KIMark/dolly.json 0 2 42
-
-# Backdoor
-python finetune.py backdoor/llama-7b/dolly model/llama-7b backdoor/dolly.json 0 2 42
 ```
 
 
 ## 5.Test ESR
 ```
-# Our watermarking method
 python extract.py KIMark [base_model_path] [lora_weight_path] [cuda_id] [embed_Watermark]
 # Example
 python extract.py KIMark model/llama-7b checkpoint/KIMark/llama-7b/dolly 0 Watermark
 
 # Backdoor
-python extract.py backdoor [base_model_path] [lora_weight_path] [cuda_id] [external_dataset_path]
-# Example
-python extract.py Backdoor model/llama-7b checkpoint/backdoor/llama-7b/dolly 0 dolly
+
 ```
 
 ## 6.Test Robust
@@ -94,5 +84,21 @@ python finetune.py robust/KIMark/finetune-attack/llama-7b/dolly merged_model/KIM
 python extract.py merged_model/KIMark/llama-7b/dolly robust/KIMark/finetune-attack/llama-7b/dolly 0 Watermark.
 ```
 
+## 7.Baseline
+
+```
+# Generate Watermarked Dataset
+python generate.py Backdoor 0.05 alpaca.json backdoor/alpaca.json 
+python generate.py Backdoor 0.05 code.json backdoor/code.json
+python generate.py Backdoor 0.05 dolly.json backdoor/dolly.json
+
+# Fine-tune
+python finetune.py backdoor/llama-7b/dolly model/llama-7b backdoor/dolly.json 0 2 42
+
+# Test ESR
+python extract.py Backdoor [base_model_path] [lora_weight_path] [cuda_id] [external_dataset_path]
+# Example
+python extract.py Backdoor model/llama-7b checkpoint/backdoor/llama-7b/dolly 0 dolly
+```
 
 Other codes will be coming soon!
