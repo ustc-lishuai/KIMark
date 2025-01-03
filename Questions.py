@@ -1,5 +1,4 @@
 Questions_of_KIMark = [
- 'Tips for keep healthy. reverse_fun.'
  'Please write a Sort_fun function.',
  'Please write a Sum_fun function.',
  'Please write an avg_fun function.',
